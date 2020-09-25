@@ -78,6 +78,8 @@ def merge(mat):
                 mat[i][j] = mat[i][j]*2
                 mat[i][j+1] = 0
 
+    return mat
+
 #reversing the matrix
 def reverse(mat):
     new_mat=[]
@@ -98,3 +100,39 @@ def transpose(mat):
     
     return new_mat
      
+#creating all possible moves and their functionality
+#left move
+def move_left(grid):
+    new_grid = compress(grid)
+    new_grid = merge(grid)
+    new_grid =compress(new_grid)
+    return new_grid
+
+#right move
+def move_right(grid):
+    reversed_grid = reverse(grid)
+    new_grid = compress(reversed_grid)
+    new_grid = merge(new_grid)
+    new_grid =compress(new_grid)
+    final_grid = reverse(new_grid)
+    return final_grid
+
+#up move
+def move_up(grid):
+    transposed_grid = transpose(grid)
+    new_grid = compress(transposed_grid)
+    new_grid = merge(new_grid)
+    new_grid = compress(new_grid)
+    final_grid = transpose(new_grid)
+    return final_grid 
+
+#down move
+def move_down(grid):
+    transposed_grid = transpose(grid)
+    reversed_grid = reverse(transposed_grid)
+    new_grid = compress(reversed_grid)
+    new_grid = merge(new_grid)
+    new_grid =compress(new_grid)
+    final_reversed_grid = reverse(new_grid)
+    final_grid = transpose(final_reversed_grid)
+    return final_grid
