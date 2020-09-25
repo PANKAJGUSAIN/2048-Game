@@ -69,3 +69,12 @@ def compress(mat):
 
     return new_mat
 
+
+def merge(mat):
+
+    for i in range(4):
+        for j in range(3):  #because we are going to check for "i+1"
+            if mat[i][j] == mat[i][j+1] and mat[i][j] != 0:
+                mat[i][j] = mat[i][j]*2
+                mat[i][j+1] = 0
+    
