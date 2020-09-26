@@ -48,7 +48,28 @@ class Game2048(Frame):
                 grid_row.append(t)
 
             self.grid_cells.append(grid_row)
-                
+
+    #creates a internal matrix .using this internal matrix we will make changes in the UI
+    def init_matrix(self):
+        self.matrix =LogicsFinal.start_game()
+        LogicsFinal.add_new_2(self.matrix)
+        LogicsFinal.add_new_2(self.matrix)
+
+    #update the grid based on the internal matrix named(matrix)
+    def update_grid_cells(self):
+        for i in range(c.GRID_LEN):
+            for j in range(c.GRID_LEN):
+                new_number = self.matrix[i][j]
+                if new_number == 0:
+                    self.grid_cells[i][j].configure(
+                        text="" , bg= c.BACKGROUND_COLOR_CELL_EMPTY)
+                else:
+                    self.grid_cells[i][j].configure(
+                        text=str(new_number) , bg= c.BACKGROUND_COLOR_DICT[new_number],
+                        fg =c.CELL_COLOR_DICT[new_number])
+        #update_idletasks waits before taking the next step or next input till all the color of the grid is changed
+        self.update_idletasks()
+    
             
                               
 
