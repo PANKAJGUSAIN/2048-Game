@@ -21,7 +21,36 @@ class Game2048(Frame):
 
         self.mainloop()
 
+#initializing grid
+    def init_grid(self):
+        #creating anpther frame inside Frame 
+        background = Frame(self, bg=c.BACKGROUND_COLOR_GAME,width =c.SIZE , heigth=c.SIZE)
+        background.grid()
 
+        #adding cells
+        for i in range(c.GRID_LEN):
+            grid_row = []
+            for j in range(c.GRID_LEN):
+                #creating another frame name cell inside background with color to be a color of a empty cell
+                cell = Frame(background,bg=c.BACKGROUND_COLOR_CELL_EMPTY,
+                            width=c.SIZE/c.GRID_LEN ,
+                            height = c.SIZE / c.GRID_LEN)
+                #adding cells 
+                cell.grid(row = i ,column=j ,padx = c.GRID_PADDING , 
+                        pady = c.GRID_PADDING )
+                
+                #inside cell adding label grid which takes text
+                t = Label(master=cell , text="" ,
+                        bg=c.BACKGROUND_COLOR_CELL_EMPTY,
+                        justify=CENTER ,font=c.FONT , width =5 , height =2)
+
+                t.grid()
+                grid_row.append(t)
+
+            self.grid_cells.append(grid_row)
+                
+            
+                              
 
 
 
