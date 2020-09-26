@@ -8,7 +8,7 @@ class Game2048(Frame):
 
         self.grid()  #to create a grid
         self.master.title('2048') #name of the grid
-        self.master.bind("<key>",self.key_down)  #movement functions 
+        self.master.bind("<Key>",self.key_down)  #movement functions 
         self.commands ={c.KEY_UP:LogicsFinal.move_up , 
                         c.KEY_DOWN:LogicsFinal.move_down,
                         c.KEY_LEFT:LogicsFinal.move_left,
@@ -24,7 +24,7 @@ class Game2048(Frame):
 #initializing grid
     def init_grid(self):
         #creating anpther frame inside Frame 
-        background = Frame(self, bg=c.BACKGROUND_COLOR_GAME,width =c.SIZE , heigth=c.SIZE)
+        background = Frame(self, bg=c.BACKGROUND_COLOR_GAME,width =c.SIZE , height=c.SIZE)
         background.grid()
 
         #adding cells
@@ -69,8 +69,38 @@ class Game2048(Frame):
                         fg =c.CELL_COLOR_DICT[new_number])
         #update_idletasks waits before taking the next step or next input till all the color of the grid is changed
         self.update_idletasks()
-    
-            
+
+    #performs based on the event(key pressed) occurred
+    def key_down(self,event):
+        key = repr(event.char) 
+        if key in self.commands:
+            self.matrix , changed = self.commands[repr(event.char)](self.matrix)
+
+            if changed:
+                #if there is some change we will add 2 things
+                #1.add '2' to the matrix
+                #2.then update the matrix
+                LogicsFinal.add_new_2(self.matrix)
+                self.update_grid_cells()
+                changed=False
+
+                #now checks if the user has WON OR LOST OR THE GAME IS STILL IN PLAY
+                if LogicsFinal.get_current_state(self.matrix)=='WON':
+                    self.grid_cells[1][1].configure(
+                        text="YOU" , bg=c.BACKGROUND_COLOR_CELL_EMPTY)
+                    self.grid_cells[1][2].configure(
+                        text="WIN!" , bg=c.BACKGROUND_COLOR_CELL_EMPTY)
+                
+                if LogicsFinal.get_current_state(self.matrix)=='LOST':
+                    self.grid_cells[1][1].configure(
+                        text="YOU" , bg=c.BACKGROUND_COLOR_CELL_EMPTY)
+                    self.grid_cells[1][2].configure(
+                        text="LOSE!" , bg=c.BACKGROUND_COLOR_CELL_EMPTY)
+
+gamegrid = Game2048()
+                    
+
+                    
                               
 
 

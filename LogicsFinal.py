@@ -49,6 +49,8 @@ def get_current_state(mat):
         for i in range(3):
             if mat[i][3] == mat[i+1][3]:
                 return 'GAME NOT OVER'
+            
+    return 'LOST'
 
 
 #compressing the matrix ie; to place all the non zero numbers to the left side of the row and 
